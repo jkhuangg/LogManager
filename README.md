@@ -42,7 +42,7 @@ g
 p
 <li><strong>Quit</strong></li>
 q
-<li><strong>No Operation (comment)<strong></li>
+<li><strong>No Operation (comment)</strong></li>
 &#35
 </ul>
 
