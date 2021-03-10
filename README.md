@@ -19,19 +19,19 @@ t &lttimestamp1>|&lttimestamp2>&l
 <li><strong>Matching Timestamp</strong></li>
 m &lttimestamp>
 <li><strong>Category Search</strong></li>
-c &lstring>
+c &ltstring>
 <li><strong>Keyword Search</strong></li>
-k &lstring>
+k &ltstring>
 <li><strong>Append Log Entry (by entryID)</strong></li>
-a &linteger>
+a &ltinteger>
 <li><strong>Append Search Results</strong></li>
 r
 <li><strong>Delete Log Entry</strong></li>
-d &linteger>
+d &ltinteger>
 <li><strong>Move to Beginning</strong></li>
-b &linteger>
+b &ltinteger>
 <li><strong>Move to End</strong></li>
-e &linteger>
+e &ltinteger>
 <li><strong>Sort Excerpt List</strong></li>
 s
 <li><strong>Clear Excerpt List</strong></li>
