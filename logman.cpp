@@ -45,7 +45,8 @@ void parse_str(string str, std::vector<string> &kw_vec) {
             ++i;
         }
 
-        if (!kw.empty()) kw_vec.push_back(kw);
+        if (!kw.empty()) 
+            kw_vec.push_back(kw);
     }
 }
 
@@ -155,7 +156,7 @@ int main(int argc, char *argv[])
         LogEnt *entr = new LogEnt(ts, cat, msg, entid);
         master_log.push_back(entr);
         ++entid;
-    }// finished puttting in master log
+    } // finished puttting in master log
 
     // sort master log
     std::sort(master_log.begin(), master_log.end(), LogEnt::cmpEnt());
@@ -213,7 +214,7 @@ int main(int argc, char *argv[])
         std::cout << "% ";
         std::cin >> cmd;
 
-        switch(cmd) {
+        switch (cmd) {
 
             case 'a': {
                 size_t entid;
@@ -293,26 +294,34 @@ int main(int argc, char *argv[])
                     break;
 
                 // for t, m, c, k
-                if (last_search.last_s == 't' || last_search.last_s == 'm') {
-                    auto beg = last_search.itr_b;
-                    auto end = last_search.itr_e;
+                switch (last_search.last_s) {
+                    case 't':
+                    case 'm': {
+                        auto beg = last_search.itr_b;
+                        auto end = last_search.itr_e;
 
-                    int ml_b = int(beg - master_log.begin());
-                    int ml_e = int(end - master_log.begin());
+                        int ml_b = int(beg - master_log.begin());
+                        int ml_e = int(end - master_log.begin());
 
-                    for (int i = ml_b; i < ml_e; ++i)
-                        print_LogEnt(master_log[i]);
-                }
-                else if (last_search.last_s == 'c') { 
-                    if (!last_search.found_c) 
+                        for (int i = ml_b; i < ml_e; ++i)
+                            print_LogEnt(master_log[i]);
                         break;
+                    }
+                    
+                    case 'c': { 
+                        if (!last_search.found_c) 
+                            break;
 
-                    for (auto x : ct_log[last_search.last_c])
-                        print_LogEnt(master_log[x]);
-                }
-                else if (last_search.last_s == 'k') { 
-                    for (auto x : last_search.last_k)
-                        print_LogEnt(master_log[x]);
+                        for (auto x : ct_log[last_search.last_c])
+                            print_LogEnt(master_log[x]);
+                        break;
+                    }
+
+                    case 'k': { 
+                        for (auto x : last_search.last_k)
+                            print_LogEnt(master_log[x]);
+                        break;
+                    }
                 }
                 break;
             }
@@ -323,30 +332,41 @@ int main(int argc, char *argv[])
                     break;
 
                 // for t, m, c, k
-                if (last_search.last_s == 't' || last_search.last_s == 'm') {
-                    auto beg = last_search.itr_b;
-                    auto end = last_search.itr_e;
+                switch (last_search.last_s) {
+                    case 't':
+                    case 'm': {
+                        auto beg = last_search.itr_b;
+                        auto end = last_search.itr_e;
 
-                    int ml_b = int(beg - master_log.begin());
-                    int ml_e = int(end - master_log.begin());
+                        int ml_b = int(beg - master_log.begin());
+                        int ml_e = int(end - master_log.begin());
 
-                    for (int i = ml_b; i < ml_e; ++i)
-                        expt_log.push_back(i);
-                    std::cout << (ml_e - ml_b) << " log entries appended\n";
-                }
-                else if (last_search.last_s == 'c') {
-                    if (!last_search.found_c) {
-                        std::cout << "0 log entries appended\n";
+                        for (int i = ml_b; i < ml_e; ++i)
+                            expt_log.push_back(i);
+                        
+                        std::cout << (ml_e - ml_b) << " log entries appended\n";
                         break;
                     }
-                    for (auto x : ct_log[last_search.last_c])
-                        expt_log.push_back(x);
-                    std::cout << ct_log[last_search.last_c].size() << " log entries appended\n";
-                }
-                else if (last_search.last_s == 'k') {
-                    for (auto x : last_search.last_k)
-                        expt_log.push_back(x);
-                    std::cout << last_search.last_k.size() << " log entries appended\n";
+
+                    case 'c': {
+                        if (!last_search.found_c) {
+                            std::cout << "0 log entries appended\n";
+                            break;
+                        }
+                        for (auto x : ct_log[last_search.last_c])
+                            expt_log.push_back(x);
+                        
+                        std::cout << ct_log[last_search.last_c].size() << " log entries appended\n";
+                        break;
+                    }
+
+                    case 'k': {
+                        for (auto x : last_search.last_k)
+                            expt_log.push_back(x);
+                        
+                        std::cout << last_search.last_k.size() << " log entries appended\n";
+                        break;
+                    }
                 }
                 break;
             }
@@ -482,10 +502,8 @@ int main(int argc, char *argv[])
                 getline(cin, junk);
                 break;
             }
-
         }
     } while (cmd != 'q');
-
     
     for (auto x : master_log) 
         delete x;
