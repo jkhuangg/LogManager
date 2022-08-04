@@ -215,7 +215,6 @@ int main(int argc, char *argv[])
         std::cin >> cmd;
 
         switch (cmd) {
-
             case 'a': {
                 size_t entid;
                 std::cin >> entid;
